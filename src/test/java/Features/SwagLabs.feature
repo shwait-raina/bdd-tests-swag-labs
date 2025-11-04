@@ -16,5 +16,5 @@ Feature: Flipkart app launch and search functionality
     When User adds the below items to the cart
       | Sauce Labs Backpack |
       | Sauce Labs Onesie   |
-      | Sauce Labs a   |
     And User takes the snapshot of "Inventory page"
+    And User verifies the badge count in cart button

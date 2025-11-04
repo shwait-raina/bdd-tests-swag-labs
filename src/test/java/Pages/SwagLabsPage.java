@@ -12,4 +12,5 @@ public class SwagLabsPage {
     public static String screenNameLocator(String labelForScreenName) {
         return "//div[@class='app_logo']";
     }
+    public static String badgeCountLocatorClass="shopping_cart_badge";
 }

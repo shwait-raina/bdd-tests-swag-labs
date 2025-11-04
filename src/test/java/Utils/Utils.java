@@ -52,4 +52,47 @@ public class Utils {
             throw new RuntimeException("Failed to select custom dropdown option.", e);
         }
     }
+
+    public static void scrollToElement(WebDriver driver, WebElement element) {
+        if (driver == null || element == null) {
+            throw new IllegalArgumentException("Driver or element cannot be null");
+        }
+
+        try {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+        } catch (Exception e) {
+            System.err.println("Error while scrolling to element: " + e.getMessage());
+        }
+    }
+
+    public static boolean acceptAlertIfPresent(WebDriver driver) {
+        try {
+            Alert alert = driver.switchTo().alert();
+            System.out.println("Alert detected with text: " + alert.getText());
+            alert.accept(); // Click OK button
+            System.out.println("Alert accepted successfully.");
+            return true;
+        } catch (NoAlertPresentException e) {
+            // No alert open — safe to continue
+            return false;
+        } catch (Exception e) {
+            System.err.println("Error while handling alert: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static void safeClick(WebDriver driver, WebElement element) {
+        scrollToElement(driver, element);
+
+        try {
+            element.click();
+        } catch (Exception e) {
+            // Sometimes alert interrupts click
+            System.out.println("Click interrupted: " + e.getMessage());
+        }
+
+        // Always check for random alerts after click
+        acceptAlertIfPresent(driver);
+    }
+
 }

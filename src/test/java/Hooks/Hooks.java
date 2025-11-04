@@ -1,7 +1,9 @@
 package Hooks;
 
 import Utils.DriverManager;
+import Utils.Utils;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.apache.commons.io.FileUtils;
@@ -12,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static Utils.Utils.acceptAlertIfPresent;
 
 public class Hooks {
 
@@ -36,6 +40,11 @@ public class Hooks {
             }
         }
         DriverManager.quitDriver();
+    }
+
+    @AfterStep
+    public void handleAlertAfterStep() {
+        acceptAlertIfPresent(DriverManager.getDriver());
     }
 
     private void saveScreenshotFile(String scenarioName) {

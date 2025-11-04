@@ -2,7 +2,6 @@ package StepDefinitions;
 
 import Pages.FlipkartLaunchPage;
 import Utils.*;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -11,9 +10,6 @@ import org.openqa.selenium.WebDriver;
 
 import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-
-import java.util.List;
 
 public class FlipkartLaunchStepDef {
     WebDriver driver = DriverManager.getDriver();

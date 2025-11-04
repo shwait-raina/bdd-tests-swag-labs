@@ -27,6 +27,11 @@ public class WebDriverWaitManager {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(locator))));
     }
 
+    public static void explicitWaitForElementToBeVisible(By locator, WebDriver driver, int timeout) {
+        wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(locator)));
+    }
+
 //    public static void explicitWaitForElementToBeSelected(WebElement element, WebDriver driver, int timeout) {
 //        wait = new WebDriverWait(driver,Duration.ofSeconds(timeout));
 //        List<WebElement> options = wait.until(ExpectedConditions.visibilityOf(element));
