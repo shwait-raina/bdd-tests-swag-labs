@@ -26,6 +26,6 @@ public class GenerateMasterthoughtReport {
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
         reportBuilder.generateReports();
 
-        System.out.println("✅ Masterthought HTML report generated at: " + reportOutputDirectory.getAbsolutePath());
+        System.out.println("Masterthought HTML report generated at: " + reportOutputDirectory.getAbsolutePath());
     }
 }

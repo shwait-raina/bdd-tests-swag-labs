@@ -1,6 +1,6 @@
 package StepDefinitions;
 
-import Pages.SwagLabsPage;
+import Hooks.Hooks;
 import Utils.*;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.PendingException;
@@ -8,11 +8,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -23,7 +21,6 @@ public class SwagLabsStepDef {
     String username = "";
     String password = "";
     HashmapData map = HashmapData.getInstance();
-    Alert alert;
 
     @And("User enters the {string} credentials")
     public void enterValidCredentials(String credentials) {
@@ -114,5 +111,48 @@ public class SwagLabsStepDef {
         int badgeCount = Integer.parseInt(element.getText());
         System.out.println("Actual Badge count: "+badgeCount);
         Assert.assertEquals(badgeCount+" items are selected in cart", badgeCount, countFromMap);
+    }
+
+    @When("User adds the below items to the cart via inventory item page")
+    public void userAddsTheBelowItemsToTheCartViaInventoryItemPage(DataTable dataTable) throws InterruptedException {
+        List<String> itemsToBeAddedInCart = dataTable.asList();
+        System.out.println(itemsToBeAddedInCart);
+        int count = 0;
+        for (String item : itemsToBeAddedInCart) {
+            count += addItemToCart(item);
+        }
+        map.put("count", count);
+        System.out.println("Total items added: " + count);
+        }
+
+    private int addItemToCart(String item) {
+        boolean itemFound = false;
+        int count = 0;
+        List<WebElement> inventories = driver.findElements(By.xpath(inventoryDescriptionLocator));
+
+        for (WebElement inventory : inventories) {
+            WebElement inventoryName = inventory.findElement(By.xpath(inventoryNameLocator));
+            String name = inventoryName.getText();
+            //System.out.println("Inventory name: " + name);
+            if (item.equalsIgnoreCase(name)) {
+                Utils.scrollToElement(driver,inventoryName);
+                inventoryName.click();
+                Assert.assertEquals(name,driver.findElement(By.cssSelector(".inventory_details_name")).getText());
+
+                WebElement addToCartButton = driver.findElement(By.cssSelector(".btn_primary"));
+                //Utils.scrollToElement(driver,addToCartButton);
+                addToCartButton.click();
+                Hooks.scenario.log("Added " + item + " to the cart.");
+                itemFound = true;
+                count++;
+                driver.navigate().back();
+                break;
+            }
+        }
+        if (!itemFound) {
+            System.out.println("Item not found: " + item);
+            Hooks.scenario.log("Item not found: " + item);
+        }
+        return count;
     }
 }
