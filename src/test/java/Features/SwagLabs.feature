@@ -1,5 +1,5 @@
 @run_swag_labs
-Feature: Flipkart app launch and search functionality
+Feature: Swag Labs Happy path
 
   Background: : Launching the Swag Labs app with valid credentials
     Given User navigates to "SwagLabs" website
