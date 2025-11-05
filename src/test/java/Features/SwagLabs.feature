@@ -1,3 +1,4 @@
+@run_swag_labs
 Feature: Flipkart app launch and search functionality
 
   Background: : Launching the Swag Labs app with valid credentials
@@ -14,7 +15,17 @@ Feature: Flipkart app launch and search functionality
   @addToCart
   Scenario: Adding items to cart
     When User adds the below items to the cart
-      | Sauce Labs Backpack |
-      | Sauce Labs Onesie   |
+      | Sauce Labs Backpack               |
+      | Sauce Labs Onesie                 |
+      | Test.allTheThings() T-Shirt (Red) |
+    And User takes the snapshot of "Inventory page"
+    And User verifies the badge count in cart button
+
+  @singleItemAddToCart
+  Scenario: Adding single item(s) to cart
+    When User adds the below items to the cart via inventory item page
+      | Sauce Labs Backpack               |
+      | Sauce Labs Onesie                 |
+      | Test.allTheThins() T-Shirt (Red) |
     And User takes the snapshot of "Inventory page"
     And User verifies the badge count in cart button
