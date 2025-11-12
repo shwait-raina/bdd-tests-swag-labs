@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
         glue = {"StepDefinitions","Hooks"},
         monochrome = true,
         dryRun = false,
-        tags = "@singleItemAddToCart",
+        tags = "@checkMaxSpeedInFast",
         plugin = {
                 "pretty",                                    // Console output
                 "html:target/cucumber-report/cucumber.html",  // Basic HTML report

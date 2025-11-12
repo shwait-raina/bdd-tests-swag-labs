@@ -24,6 +24,7 @@ public class FlipkartLaunchStepDef {
             case "amazon" -> ConfigReader.getProperty("amazon.url");
             case "google" -> ConfigReader.getProperty("google.url");
             case "swaglabs" -> ConfigReader.getProperty("swaglabs.url");
+            case "fast" -> ConfigReader.getProperty("fast.url");
             default -> throw new RuntimeException("Unknown website: " + websiteName);
         };
 
